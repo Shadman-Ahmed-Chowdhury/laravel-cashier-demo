@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,16 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/subscribe', function () {
+        return view('subscribe', [
+            'intent' => auth()->user()->createSetupIntent()
+        ]);
+    })->name('subscribe');
+
+    Route::post('/subscribe', function (Request $request) {
+        dd($request->all());
+        auth()->user()->newSubscription('cashier', $request->plan)->create($request->paymentMethod);
+        return redirect('/dashboard');
+    })->name('subscribe.post');
 });
