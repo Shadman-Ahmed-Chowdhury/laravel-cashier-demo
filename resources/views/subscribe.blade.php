@@ -11,7 +11,7 @@
                 <div class="p-6">
 
                     <!-- Display a payment form -->
-                    <form id="payment-form" method="POST" action={{ route('subscribe.post') }}>
+                    <form id="payment-form" method="POST" action={{ route('subscribe.post') }} data-secret="{{ $intent->client_secret }}">
                         @csrf
                         <div class="mt-4">
                             <input type="radio" name="plan" id="standard" value="price_1OKPn1IomEhIc7v0IQHMopPE"
